@@ -1,41 +1,45 @@
 """
-Loads application_train.csv into a local MySQL database.
-
-Before running:
-1. Install MySQL Server + create a database, e.g.:
-     CREATE DATABASE credit_risk;
-2. Fill in your credentials below (or better, load them from a .env file
-   that's git-ignored — don't commit real passwords).
-3. pip install -r requirements.txt
+Loads application_train.csv and application_test.csv into a local MySQL database.
+Password is read from a .env file in the project root (git-ignored).
 """
 
+import os
+from pathlib import Path
+
 import pandas as pd
+from dotenv import load_dotenv
 from sqlalchemy import create_engine
 
-import os
-from dotenv import load_dotenv
-# --- fill these in ---
+ROOT = Path(__file__).resolve().parent.parent
+load_dotenv(ROOT / ".env")
+
 DB_USER = "root"
-DB_PASSWORD = os.getenv("DB_PASSWORD")  # Load password from .env file
+DB_PASSWORD = os.getenv("DB_PASSWORD")
 DB_HOST = "localhost"
 DB_PORT = 3306
 DB_NAME = "credit_risk"
-CSV_PATH = "../data/application_train.csv"
-TABLE_NAME = "applications"
-# ----------------------
+
+FILES = {
+    "applications": ROOT / "data" / "application_train.csv",
+    "applications_test": ROOT / "data" / "application_test.csv",
+}
+
 
 def main():
     engine = create_engine(
         f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
     )
 
-    print(f"Reading {CSV_PATH} ...")
-    df = pd.read_csv(CSV_PATH)
-    print(f"Loaded {len(df):,} rows, {df.shape[1]} columns")
+    for table_name, csv_path in FILES.items():
+        print(f"Reading {csv_path} ...")
+        df = pd.read_csv(csv_path)
+        print(f"Loaded {len(df):,} rows, {df.shape[1]} columns")
 
-    print(f"Writing to MySQL table '{TABLE_NAME}' ...")
-    df.to_sql(TABLE_NAME, engine, if_exists="replace", index=False, chunksize=5000)
-    print("Done. You can now query this table from MySQL Workbench or your notebooks.")
+        print(f"Writing to MySQL table '{table_name}' ...")
+        df.to_sql(table_name, engine, if_exists="replace", index=False, chunksize=5000)
+
+    print("Done. You can now query both tables from MySQL Workbench or your notebooks.")
+
 
 if __name__ == "__main__":
     main()
