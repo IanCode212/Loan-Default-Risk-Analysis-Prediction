@@ -29,8 +29,10 @@ Python, MySQL, SQL, Pandas, NumPy, Matplotlib, Seaborn, scikit-learn, LightGBM, 
 | Logistic regression (baseline) | 0.750 |
 | LightGBM (first version) | 0.764 |
 | LightGBM (tuned, early stopping) | **0.770** |
+| Kaggle late submission (public / private leaderboard) | 0.760 / 0.760 |
 
 - Test set: 61,503 applicants. Validation AUC (0.770) matched the test AUC, so the gain is not an artifact of tuning on the test set.
+- Submitted the tuned LightGBM to Kaggle's held-out test set (48,744 applicants, answers hidden): public score 0.75957, private score 0.76036. That is close to the 0.770 I measured locally, which suggests the pipeline generalizes and was not overfit.
 - A model that predicts "no default" for everyone would be 91.9% accurate but useless, which is why AUC-ROC is the metric.
 
 ## Key Findings
@@ -41,8 +43,6 @@ Python, MySQL, SQL, Pandas, NumPy, Matplotlib, Seaborn, scikit-learn, LightGBM, 
 - **Income is not a clean predictor.** High-income applicants default least (7.1%), but mid-income applicants default slightly more than low-income applicants (8.6% vs. 8.2%).
 - **Loan-to-income ratio doesn't show the expected pattern either.** Mid-ratio applicants (2-5x income) default most (8.7%), while low and high ratios are both lower (~7.4%). A possible reason is selection bias: lenders may apply stricter approval standards to high-ratio applicants.
 - **The model relies on external credit scores and loan repayment structure.** The most-used features were the engineered `CREDIT_TERM` (annuity / credit) and `EXT_SOURCE_MEAN`. All 8 engineered features ranked in the top 20. `CREDIT_TERM` has near-zero linear correlation with default (+0.01) yet ranked first, so the model is capturing a non-linear pattern.
-
-## Charts
 
 ## Charts
 
@@ -61,7 +61,8 @@ Python, MySQL, SQL, Pandas, NumPy, Matplotlib, Seaborn, scikit-learn, LightGBM, 
 - Feature importance counts splits, so it shows what the model used, not the direction or cause of an effect.
 - Income and loan-to-income buckets are broad. Finer or continuous views may show more.
 - Missing values were median-imputed for the baseline; LightGBM handles them natively.
-- Planned: a Power BI dashboard summarizing default risk by applicant segment, and a Kaggle leaderboard submission.
+- Planned: a Power BI dashboard summarizing default risk by applicant segment.
+- The preprocessing is repeated for the Kaggle test set; wrapping it in one function or a scikit-learn Pipeline would keep train and test steps from drifting apart.
 
 ## Project Structure
 ```
