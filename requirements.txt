@@ -1,10 +1,10 @@
-pandas
-numpy
-matplotlib
-seaborn
-scikit-learn
-sqlalchemy
-pymysql
-jupyter
-python-dotenvlightgbm
-python-dotenv
+   pandas
+   numpy
+   matplotlib
+   seaborn
+   scikit-learn
+   sqlalchemy
+   pymysql
+   jupyter
+   lightgbm
+   python-dotenv
