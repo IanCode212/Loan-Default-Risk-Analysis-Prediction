@@ -60,6 +60,8 @@ Python, MySQL, SQL, Pandas, NumPy, Matplotlib, Seaborn, scikit-learn, LightGBM, 
 
 ![Loan default risk dashboard](images/Credit_Risk_Dashboard.png)
 
+Download the interactive version: [loan_default_dashboard.pbix](dashboard/loan_default_dashboard.pbix) (open with the free Power BI Desktop, Windows only).
+
 An interactive dashboard built in Power BI Desktop with KPI cards and slicers for education level and age group. It shows how default rate changes by age, external credit score, education and income.
 
 - Default rate falls from 22.9% in the lowest external credit score decile to 2.0% in the highest.
