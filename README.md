@@ -56,6 +56,17 @@ Python, MySQL, SQL, Pandas, NumPy, Matplotlib, Seaborn, scikit-learn, LightGBM, 
 
 ![Top features](images/top_20_feature_importances.png)
 
+## Power BI Dashboard
+
+![Loan default risk dashboard](images/Credit_Risk_Dashboard.png)
+
+An interactive dashboard built in Power BI Desktop with KPI cards and slicers for education level and age group. It shows how default rate changes by age, external credit score, education and income.
+
+- Default rate falls from 22.9% in the lowest external credit score decile to 2.0% in the highest.
+- Default rate falls from 11.7% for under-25s to 3.4% for 65+.
+- Income alone is a weak predictor.
+
+
 ## Limitations & Next Steps
 - Only `application_train.csv` was used. The linked bureau and previous-application tables would likely add +0.01 to +0.02 AUC.
 - Feature importance counts splits, so it shows what the model used, not the direction or cause of an effect.
@@ -68,7 +79,7 @@ Python, MySQL, SQL, Pandas, NumPy, Matplotlib, Seaborn, scikit-learn, LightGBM, 
 ```
 notebooks/01_analysis.ipynb   # SQL exploration, EDA, cleaning, modeling
 src/load_data.py              # loads the CSV into MySQL
-images/                       # charts used in this README
+images/                       # charts and dashboard screenshot used in this README
 ```
 
 ## How to Run
