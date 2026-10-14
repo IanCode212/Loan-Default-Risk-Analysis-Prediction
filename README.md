@@ -80,14 +80,14 @@ An interactive dashboard built in Power BI Desktop with KPI cards and slicers fo
 ## Project Structure
 ```
 notebooks/01_analysis.ipynb   # SQL exploration, EDA, cleaning, modeling
-src/load_data.py              # loads the CSV into MySQL
+src/load_data.py              # loads the train and test CSVs into MySQL
 images/                       # charts and dashboard screenshot used in this README
 ```
 
 ## How to Run
 1. Clone this repo and run `pip install -r requirements.txt`
-2. Download `application_train.csv` from the Kaggle link above into `/data`
+2. Download `application_train.csv` and `application_test.csv` from the Kaggle link above into `/data`
 3. Create a MySQL database named `credit_risk`
 4. Create a `.env` file in the project root containing `DB_PASSWORD=your_mysql_password` (it is git-ignored)
 5. Run `python src/load_data.py` to load the data into MySQL
-6. Run the notebook in `/notebooks` from top to bottom
+6. Run python `src/load_data.py` to load both tables into MySQL
